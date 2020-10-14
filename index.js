@@ -18,12 +18,23 @@ export default class DJSystem extends ServerModule {
             scope: 'server',
             requires: [
                 'music'
+            ],
+            events: [
+                {
+                    'mod': 'db',
+                    'name': 'ready',
+                    'call': '_dbReady'
+                }
             ]
         });
     }
 
     get constants() {
         return Constants;
+    }
+
+    _dbReady() {
+        this.reset(true);
     }
 
     /**
