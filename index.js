@@ -74,7 +74,7 @@ export default class DJSystem extends ServerModule {
      * @param {boolean} [hard=false]
      */
     reset(hard = false) {
-        if (hard) this.mode = this.getModule('guildSetting').get(this.server.id, 'dj_mode') || DJMode['FREEFORALL'];
+        if (hard) this.mode = this.modules.guildSetting.get(this.server.id, 'dj_mode') || DJMode['FREEFORALL'];
         this.playlistLock = false;
 
         if (!this.users)
@@ -126,7 +126,7 @@ export default class DJSystem extends ServerModule {
         if (persist) {
             this.server.options.update('djMode', mode);
 
-            this.getModule('guildSetting').set(this.server.id, 'dj_mode', mode);
+            this.modules.guildSetting.set(this.server.id, 'dj_mode', mode);
         }
 
         this.mode = mode;

@@ -31,6 +31,10 @@ export default class ServerModule {
         return this._m.log;
     }
 
+    get modules() {
+        return this._m.modules;
+    }
+
     get servers() {
         return this._m.servers;
     }
@@ -57,12 +61,5 @@ export default class ServerModule {
         else if (this.rawData) {
             Object.assign(this.rawData, object);
         }
-    }
-
-    /**
-     * @param {string} moduleName
-     */
-    getModule(moduleName) {
-        return this._m.modules.get(moduleName);
     }
 }
