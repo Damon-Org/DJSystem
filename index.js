@@ -18,23 +18,14 @@ export default class DJSystem extends ServerModule {
             scope: 'server',
             requires: [
                 'music'
-            ],
-            events: [
-                {
-                    'mod': 'db',
-                    'name': 'ready',
-                    'call': '_dbReady'
-                }
             ]
         });
+
+        if (this.server !== -1 && this.modules.mongodb.ready) this.reset();
     }
 
     get constants() {
         return Constants;
-    }
-
-    _dbReady() {
-        this.reset(true);
     }
 
     /**
@@ -73,8 +64,10 @@ export default class DJSystem extends ServerModule {
     /**
      * @param {boolean} [hard=false]
      */
-    reset(hard = false) {
-        if (hard) this.mode = this.modules.guildSetting.get(this.server.id, 'dj_mode') || DJMode['FREEFORALL'];
+    async reset(hard = false) {
+        await this.server.setting.awaitData();
+
+        if (hard) this.mode = this.server.setting.data.guildMode || DJMode['FREEFORALL'];
         this.playlistLock = false;
 
         if (!this.users)
@@ -124,9 +117,9 @@ export default class DJSystem extends ServerModule {
      */
     setMode(mode, persist = false) {
         if (persist) {
-            this.server.options.update('djMode', mode);
-
-            this.modules.guildSetting.set(this.server.id, 'dj_mode', mode);
+            this.server.setting.update({
+                djMode: mode
+            });
         }
 
         this.mode = mode;
