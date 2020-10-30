@@ -15,13 +15,14 @@ export default class DJSystem extends ServerModule {
 
         this.register(DJSystem, {
             name: 'dj',
-            scope: 'server',
+            scope: {
+                group: 'server',
+                name: 'dj'
+            },
             requires: [
                 'music'
             ]
         });
-
-        if (this.server !== -1 && this.modules.mongodb.ready) this.reset();
     }
 
     get constants() {
@@ -48,6 +49,10 @@ export default class DJSystem extends ServerModule {
         return this.users.has(serverMemberId);
     }
 
+    initScope() {
+        this.reset(true);
+    }
+
     /**
      * @param {GuildMember}
      */
@@ -65,9 +70,11 @@ export default class DJSystem extends ServerModule {
      * @param {boolean} [hard=false]
      */
     async reset(hard = false) {
-        await this.server.setting.awaitData();
+        if (hard) {
+            await this.server.settings.awaitData();
 
-        if (hard) this.mode = this.server.setting.data.guildMode || DJMode['FREEFORALL'];
+            this.mode = this.server.settings.data.guildMode || DJMode['FREEFORALL'];
+        }
         this.playlistLock = false;
 
         if (!this.users)
@@ -125,15 +132,5 @@ export default class DJSystem extends ServerModule {
         this.mode = mode;
 
         this.reset();
-    }
-
-    /**
-     * This method is only ran once to setup the module
-     * we can abuse this to add our event listeners globally
-     */
-    setup() {
-
-
-        return true;
     }
 }
