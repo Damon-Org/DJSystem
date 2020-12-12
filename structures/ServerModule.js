@@ -1,6 +1,7 @@
 export default class ServerModule {
     /**
      * @param {Main} main The program entrypoint class
+     * @param {Server} [server=-1]
      */
     constructor(main, server = -1) {
         this._m = main;
