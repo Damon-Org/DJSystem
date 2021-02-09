@@ -1,6 +1,6 @@
-import DJCommand from '../../../../structures/commands/DJCommand.js'
+import DJCommand from '../../../structures/commands/DJCommand.js'
 
-export default class DJAdd extends DJCommand {
+export default class DJRemove extends DJCommand {
     /**
      * @param {string} category
      * @param {Array<*>} args
@@ -8,23 +8,32 @@ export default class DJAdd extends DJCommand {
     constructor(category, ...args) {
         super(...args);
 
-        this.register(DJAdd, {
+        this.register(DJRemove, {
             category: category,
             guild_only: true,
 
-            name: 'add',
+            name: 'dj remove',
             aliases: [],
-            description: 'Add a DJ user.',
-            usage: 'dj add <@ mention>',
+            description: 'This command forcefully resigns a DJ from his position.',
+            usage: 'dj remove <@ mention>',
             params: [
                 {
                     name: 'mention',
-                    description: 'The user to be added.',
+                    description: 'The user to be forcefully resigned.',
                     type: 'mention',
                     required: true
                 }
             ],
-            example: 'dj add'
+            permissions: {
+                logic: 'OR',
+                levels: [
+                    {
+                        type: 'SERVER',
+                        name: 'MANAGE_GUILD'
+                    }
+                ]
+            },
+            example: 'dj remove @Yimura#6969'
         });
     }
 
@@ -36,14 +45,14 @@ export default class DJAdd extends DJCommand {
             this.reply('where are you? I can\'t seem to find you in any voice channel. <:thinking_hard:560389998806040586>')
                 .then(msg => msg.delete({timeout: 5e3}));
 
-            return;
+            return true;
         }
 
         if (!this.music.isDamonInVC(this.voiceChannel)) {
             this.reply('you aren\'t in my voice channel! 😣')
                 .then(msg => msg.delete({timeout: 5e3}));
 
-            return;
+            return true;
         }
 
         const mention = this.msgObj.mentions.members.first();
@@ -51,22 +60,11 @@ export default class DJAdd extends DJCommand {
             this.reply('no user was mentioned or the mention is invalid.')
                 .then(msg => msg.delete({timeout: 5e3}));
 
-            return;
+            return true;
         }
 
-        if (this.dj.mode === this.mode['FREEFORALL']) {
-            if (!this.elevated) {
-                this.reply('as a normal user you can\'t add a DJ user without having the "DJ" role or without having the "MANAGE_GUILD" permission.')
-                    .then(msg => msg.delete({timeout: 5e3}));
+        this.dj.resign(mention);
 
-                return;
-            }
-
-            this.dj.setMode(this.mode['MANAGED']);
-            this.send('The DJ mode has been set to `MANAGED`.');
-        }
-
-        this.dj.add(mention);
-        this.send(`${mention} has been added as a DJ!`);
+        return true;
     }
 }

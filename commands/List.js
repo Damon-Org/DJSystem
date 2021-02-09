@@ -1,4 +1,4 @@
-import BaseCommand from '../../../../structures/commands/BaseCommand.js'
+import BaseCommand from '../../../structures/commands/BaseCommand.js'
 
 export default class DJList extends BaseCommand {
     /**
@@ -12,7 +12,7 @@ export default class DJList extends BaseCommand {
             category: category,
             guild_only: true,
 
-            name: 'list',
+            name: 'dj list',
             aliases: [],
             description: 'Shows a list of all users that are currently DJ.',
             usage: 'dj list',

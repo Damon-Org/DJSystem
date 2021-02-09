@@ -1,4 +1,4 @@
-import BaseCommand from '../../../../structures/commands/BaseCommand.js'
+import BaseCommand from '../../../structures/commands/BaseCommand.js'
 
 export default class DJPersistMode extends BaseCommand {
     /**
@@ -12,9 +12,9 @@ export default class DJPersistMode extends BaseCommand {
             category: category,
             guild_only: true,
 
-            name: 'persistmode',
+            name: 'dj persistmode',
             aliases: [
-                'persist mode'
+                'dj persist mode'
             ],
             description: 'This will enforce a set DJ mode on the server.',
             usage: 'dj persistmode <# mode>',

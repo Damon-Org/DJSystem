@@ -1,4 +1,4 @@
-import BaseCommand from '../../../../structures/commands/BaseCommand.js'
+import BaseCommand from '../../../structures/commands/BaseCommand.js'
 
 export default class DJInfo extends BaseCommand {
     /**
@@ -12,7 +12,7 @@ export default class DJInfo extends BaseCommand {
             category: category,
             guild_only: true,
 
-            name: 'info',
+            name: 'dj info',
             aliases: [],
             description: 'Shows some information about the DJ system and which modes exists.',
             usage: 'dj info',

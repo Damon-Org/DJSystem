@@ -1,4 +1,4 @@
-import DJCommand from '../../../../structures/commands/DJCommand.js'
+import DJCommand from '../../../structures/commands/DJCommand.js'
 
 export default class DJMode extends DJCommand {
     /**
@@ -12,7 +12,7 @@ export default class DJMode extends DJCommand {
             category: category,
             guild_only: true,
 
-            name: 'mode',
+            name: 'dj mode',
             aliases: [],
             description: 'Change the DJ mode.',
             usage: 'dj mode <# mode>',

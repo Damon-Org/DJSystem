@@ -1,4 +1,4 @@
-import BaseCommand from '../../../../structures/commands/BaseCommand.js'
+import BaseCommand from '../../../structures/commands/BaseCommand.js'
 
 export default class DJDisable extends BaseCommand {
     /**
@@ -12,7 +12,7 @@ export default class DJDisable extends BaseCommand {
             category: category,
             guild_only: true,
 
-            name: 'disable',
+            name: 'dj disable',
             aliases: [],
             description: 'Disable the DJ system.',
             usage: 'dj disable',
