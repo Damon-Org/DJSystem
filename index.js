@@ -49,6 +49,12 @@ export default class DJSystem extends ServerModule {
         return this.users.has(serverMemberId);
     }
 
+    init() {
+        this.modules.commandRegistrar.registerCommands('DJ', import.meta.url);
+
+        return true;
+    }
+
     initScope() {
         this.reset(true);
     }
