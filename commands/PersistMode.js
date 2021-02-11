@@ -22,7 +22,7 @@ export default class DJPersistMode extends BaseCommand {
                 {
                     name: 'mode',
                     description: 'The new mode to be used for DJ\'s',
-                    type: 'number',
+                    type: 'string',
                     required: true
                 }
             ],

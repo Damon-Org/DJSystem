@@ -18,9 +18,9 @@ export default class DJAdd extends DJCommand {
             usage: 'dj add <@ mention>',
             params: [
                 {
-                    name: 'mention',
+                    name: 'user',
                     description: 'The user to be added.',
-                    type: 'mention',
+                    type: 'user',
                     required: true
                 }
             ],

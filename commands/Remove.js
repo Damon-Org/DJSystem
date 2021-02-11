@@ -18,9 +18,9 @@ export default class DJRemove extends DJCommand {
             usage: 'dj remove <@ mention>',
             params: [
                 {
-                    name: 'mention',
+                    name: 'user',
                     description: 'The user to be forcefully resigned.',
-                    type: 'mention',
+                    type: 'user',
                     required: true
                 }
             ],
