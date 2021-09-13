@@ -38,21 +38,21 @@ export default class DJList extends BaseCommand {
     async run(command) {
         if (this.dj.mode === this.mode['FREEFORALL']) {
             this.send('The DJ system is not active right now.')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return true;
         }
 
         if (!this.voiceChannel) {
             this.reply('where are you? I can\'t seem to find you in any voice channel. <:thinking_hard:560389998806040586>')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return true;
         }
 
         if (!this.music.isDamonInVC(this.voiceChannel)) {
             this.reply('you aren\'t in my voice channel! 😣')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return true;
         }
@@ -75,7 +75,7 @@ export default class DJList extends BaseCommand {
 
         embed.setDescription(description);
 
-        this.send(embed);
+        this.sendEmbed(embed);
 
         return true;
     }

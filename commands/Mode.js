@@ -34,21 +34,21 @@ export default class DJMode extends DJCommand {
     async run(command) {
         if (!this.voiceChannel) {
             this.reply('where are you? I can\'t seem to find you in any voice channel. <:thinking_hard:560389998806040586>')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return;
         }
 
         if (!this.music.isDamonInVC(this.voiceChannel)) {
             this.reply('you aren\'t in my voice channel! 😣')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return;
         }
 
         if (!this.music.active()) {
             this.send('The DJ mode can only be changed while music is playing.')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return;
         }
@@ -68,6 +68,6 @@ export default class DJMode extends DJCommand {
         }
 
         this.send(`Unknown DJ mode, use \`${this.server.prefix}dj info\` to get more information around the DJ system.`)
-            .then(msg => msg.delete({timeout: 5e3}));
+            .then(msg => setTimeout(msg.delete, 5e3));
     }
 }

@@ -43,14 +43,14 @@ export default class DJRemove extends DJCommand {
     async run(command) {
         if (!this.voiceChannel) {
             this.reply('where are you? I can\'t seem to find you in any voice channel. <:thinking_hard:560389998806040586>')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return true;
         }
 
         if (!this.music.isDamonInVC(this.voiceChannel)) {
             this.reply('you aren\'t in my voice channel! 😣')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return true;
         }
@@ -58,7 +58,7 @@ export default class DJRemove extends DJCommand {
         const mention = this.msgObj.mentions.members.first();
         if (!mention) {
             this.reply('no user was mentioned or the mention is invalid.')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return true;
         }

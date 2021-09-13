@@ -46,7 +46,7 @@ People with the \`MANAGE_GUILD\` permission can bypass all limitations imposed b
             )
             .setColor('#42069B');
 
-        this.send(embed);
+        this.sendEmbed(embed);
 
         return true;
     }

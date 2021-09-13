@@ -47,7 +47,7 @@ export default class DJPersistMode extends BaseCommand {
         }
 
         this.send(`Unknown DJ mode, use \`${this.server.prefix}dj info\` to get more information around the DJ system.`)
-            .then(msg => msg.delete({timeout: 5e3}));
+            .then(msg => setTimeout(msg.delete, 5e3));
 
         return true;
     }

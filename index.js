@@ -35,7 +35,7 @@ export default class DJSystem extends ServerModule {
     add(serverMember) {
         if (this.mode != DJMode['MANAGED']) return;
 
-        this.users.set(serverMember.id, new DJUser(this, serverMember));
+        this._cache.set(serverMember.id, new DJUser(this, serverMember));
     }
 
     /**
@@ -46,7 +46,7 @@ export default class DJSystem extends ServerModule {
 
         const serverMemberId = guildMemberResolvable instanceof GuildMember ? guildMemberResolvable.id : guildMemberResolvable;
 
-        return this.users.has(serverMemberId);
+        return this._cache.has(serverMemberId);
     }
 
     init() {
@@ -65,7 +65,7 @@ export default class DJSystem extends ServerModule {
     join(serverMember) {
         if (this.mode != DJMode['MANAGED']) return;
 
-        const djUser = this.users.get(serverMember.id);
+        const djUser = this._cache.get(serverMember.id);
 
         if (djUser) {
             djUser.clear();
@@ -83,13 +83,13 @@ export default class DJSystem extends ServerModule {
         }
         this.playlistLock = false;
 
-        if (!this.users)
-            this.users = new Map();
+        if (!this._cache)
+            this._cache = new Map();
 
-        this.users.forEach((djUser) => {
+        this._cache.forEach((djUser) => {
             djUser.clear();
 
-            this.users.delete(djUser.id);
+            this._cache.delete(djUser.id);
         });
     }
 
@@ -99,7 +99,7 @@ export default class DJSystem extends ServerModule {
     remove(serverMember) {
         if (this.mode != DJMode['MANAGED']) return;
 
-        const djUser = this.users.get(serverMember.id);
+        const djUser = this._cache.get(serverMember.id);
 
         if (djUser && this.size == 1) {
             djUser.revokeDelay(this.revokeTime);
@@ -110,7 +110,7 @@ export default class DJSystem extends ServerModule {
      * @param {GuildMember}
      */
     resign(serverMember) {
-        const djUser = this.users.get(serverMember.id);
+        const djUser = this._cache.get(serverMember.id);
         djUser.clear();
 
         if (djUser && this.size == 1) {
@@ -121,7 +121,7 @@ export default class DJSystem extends ServerModule {
             return;
         }
 
-        this.users.delete(djUser.id);
+        this._cache.delete(djUser.id);
     }
 
     /**

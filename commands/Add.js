@@ -34,14 +34,14 @@ export default class DJAdd extends DJCommand {
     async run(command) {
         if (!this.voiceChannel) {
             this.reply('where are you? I can\'t seem to find you in any voice channel. <:thinking_hard:560389998806040586>')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return;
         }
 
         if (!this.music.isDamonInVC(this.voiceChannel)) {
             this.reply('you aren\'t in my voice channel! 😣')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return;
         }
@@ -49,7 +49,7 @@ export default class DJAdd extends DJCommand {
         const mention = this.msgObj.mentions.members.first();
         if (!mention) {
             this.reply('no user was mentioned or the mention is invalid.')
-                .then(msg => msg.delete({timeout: 5e3}));
+                .then(msg => setTimeout(msg.delete, 5e3));
 
             return;
         }
@@ -57,7 +57,7 @@ export default class DJAdd extends DJCommand {
         if (this.dj.mode === this.mode['FREEFORALL']) {
             if (!this.elevated) {
                 this.reply('as a normal user you can\'t add a DJ user without having the "DJ" role or without having the "MANAGE_GUILD" permission.')
-                    .then(msg => msg.delete({timeout: 5e3}));
+                    .then(msg => setTimeout(msg.delete, 5e3));
 
                 return;
             }
