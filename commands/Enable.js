@@ -1,12 +1,12 @@
-import BaseCommand from '../../../structures/commands/BaseCommand.js'
+import Modules from '@/src/Modules.js'
 
-export default class DJEnable extends BaseCommand {
+export default class DJEnable extends Modules.commandRegistrar.BaseCommand {
     /**
      * @param {string} category
-     * @param {Array<*>} args
+     * @param {Main} main
      */
-    constructor(category, ...args) {
-        super(...args);
+    constructor(category, main) {
+        super(main);
 
         this.register(DJEnable, {
             category: category,
@@ -34,9 +34,9 @@ export default class DJEnable extends BaseCommand {
     }
 
     /**
-     * @param {string} command string representing what triggered the command
+     * @param {string} trigger string representing what triggered the command
      */
-    async run(command) {
+    run(trigger) {
         const
             guildSetting = this.modules.guildSetting,
             currentMode = guildSetting.get(this.server.id, 'dj_mode');

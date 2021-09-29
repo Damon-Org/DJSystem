@@ -1,12 +1,12 @@
-import DJCommand from '../../../structures/commands/DJCommand.js'
+import Modules from '@/src/Modules.js'
 
-export default class DJRemove extends DJCommand {
+export default class DJRemove extends Modules.dj.DJCommand {
     /**
      * @param {string} category
-     * @param {Array<*>} args
+     * @param {Main} main
      */
-    constructor(category, ...args) {
-        super(...args);
+    constructor(category, main) {
+        super(main);
 
         this.register(DJRemove, {
             category: category,
@@ -38,9 +38,9 @@ export default class DJRemove extends DJCommand {
     }
 
     /**
-     * @param {string} command string representing what triggered the command
+     * @param {string} trigger string representing what triggered the command
      */
-    async run(command) {
+    run(trigger) {
         if (!this.voiceChannel) {
             this.reply('where are you? I can\'t seem to find you in any voice channel. <:thinking_hard:560389998806040586>')
                 .then(msg => setTimeout(msg.delete, 5e3));

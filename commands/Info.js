@@ -1,12 +1,12 @@
-import BaseCommand from '../../../structures/commands/BaseCommand.js'
+import Modules from '@/src/Modules.js'
 
-export default class DJInfo extends BaseCommand {
+export default class DJInfo extends Modules.commandRegistrar.BaseCommand {
     /**
-     * @param {String} category
-     * @param {Array<*>} args
+     * @param {string} category
+     * @param {Main} main
      */
-    constructor(category, ...args) {
-        super(...args);
+    constructor(category, main) {
+        super(main);
 
         this.register(DJInfo, {
             category: category,
@@ -22,9 +22,9 @@ export default class DJInfo extends BaseCommand {
     }
 
     /**
-     * @param {String} command string representing what triggered the command
+     * @param {string} trigger string representing what triggered the command
      */
-    async run(command) {
+    run(trigger) {
         const prefix = this.globalStorage.get('prefix');
 
         const embed = new this.Discord.MessageEmbed()

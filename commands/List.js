@@ -1,12 +1,12 @@
-import BaseCommand from '../../../structures/commands/BaseCommand.js'
+import Modules from '@/src/Modules.js'
 
-export default class DJList extends BaseCommand {
+export default class DJList extends Modules.commandRegistrar.BaseCommand {
     /**
-     * @param {String} category
-     * @param {Array<*>} args
+     * @param {string} category
+     * @param {Main} main
      */
-    constructor(category, ...args) {
-        super(...args);
+    constructor(category, main) {
+        super(main);
 
         this.register(DJList,{
             category: category,
@@ -33,9 +33,9 @@ export default class DJList extends BaseCommand {
     }
 
     /**
-     * @param {String} command string representing what triggered the command
+     * @param {string} trigger string representing what triggered the command
      */
-    async run(command) {
+    run(trigger) {
         if (this.dj.mode === this.mode['FREEFORALL']) {
             this.send('The DJ system is not active right now.')
                 .then(msg => setTimeout(msg.delete, 5e3));
