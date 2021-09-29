@@ -20,6 +20,7 @@ export default class DJSystem extends ServerModule {
                 name: 'dj'
             },
             requires: [
+                'commandRegistrar',
                 'music'
             ]
         });
@@ -49,7 +50,11 @@ export default class DJSystem extends ServerModule {
         return this._cache.has(serverMemberId);
     }
 
-    init() {
+    async init() {
+        Object.assign(this, {
+            DJCommand: (await import('./structures/commands/DJCommand.js')).default
+        });
+
         this.modules.commandRegistrar.registerCommands('DJ', import.meta.url);
 
         return true;
